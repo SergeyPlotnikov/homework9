@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 @section('title',$title)
 @section('content')
     @if(!empty($currencies))

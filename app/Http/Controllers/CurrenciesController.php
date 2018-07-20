@@ -8,6 +8,8 @@ use App\Http\Requests\StoreCurrencyRequest;
 
 class CurrenciesController extends Controller
 {
+
+
     public function index()
     {
         return view('main', ['title' => 'Currency market']);
