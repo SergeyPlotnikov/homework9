@@ -10,18 +10,18 @@ class CurrenciesController extends Controller
 {
 
 
-    public function index()
+    public function main()
     {
         return view('main', ['title' => 'Currency market']);
     }
 
-    public function list()
+    public function index()
     {
         $currencies = Currency::select('id', 'title', 'short_name', 'logo_url', 'price')->get();
         return view('currencies', ['title' => 'Currency market', 'currencies' => $currencies->toArray()]);
     }
 
-    public function add()
+    public function create()
     {
         return view('add_currency');
     }
@@ -41,7 +41,7 @@ class CurrenciesController extends Controller
         return redirect()->route('Currencies');
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $currency = Currency::find($id);
         $currency->delete();

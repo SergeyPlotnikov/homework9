@@ -11,19 +11,19 @@
 |
 */
 
-Route::get('/', 'CurrenciesController@index')->name('home');
+Route::get('/', 'CurrenciesController@main')->name('home');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/currencies', 'CurrenciesController@list')->name('Currencies');
-    Route::get('/currencies/add/', 'CurrenciesController@add')->name('Add');
-
-    Route::post('/currencies', 'CurrenciesController@store')->name('store');
-    Route::get('/currencies/{id}', 'CurrenciesController@show')->name('show-currency');
-    Route::get('/currencies/{id}/edit', 'CurrenciesController@edit')->name('edit-currency');
-    Route::get('/currencies/{id}/delete', 'CurrenciesController@delete')->name('delete-currency');
-    Route::post('/currencies/update/{id}', 'CurrenciesController@update')->name('update');
+    Route::resource('currencies', 'CurrenciesController')->names([
+        'index' => 'Currencies',
+        'create' => 'Add',
+        'store' => 'store',
+        'show' => 'show-currency',
+        'edit' => 'edit-currency',
+        'destroy' => 'delete-currency',
+        'update' => 'update'
+    ]);
 });
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
