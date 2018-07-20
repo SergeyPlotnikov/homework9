@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'CurrenciesController@index');
+
+Route::get('/currencies', 'CurrenciesController@list')->name('Currencies');
+Route::get('/currencies/add/', 'CurrenciesController@add')->name('Add');
+
+
+Route::post('/currencies', 'CurrenciesController@store')->name('store');
+Route::get('/currencies/{id}', 'CurrenciesController@show')->name('show-currency');
+Route::get('/currencies/{id}/edit', 'CurrenciesController@edit')->name('edit-currency');
+Route::get('/currencies/{id}/delete', 'CurrenciesController@delete')->name('delete-currency');
+Route::post('/currencies/update/{id}', 'CurrenciesController@update')->name('update');
