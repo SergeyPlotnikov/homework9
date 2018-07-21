@@ -3,17 +3,6 @@
 ## Цель
 Ознакомиться с механизмами аутентификации и авторизации в Laravel.
 
-#### Установка
-
-Установка показана в рабочем окружении OS Linux:
-
-```
-git clone git@github.com:BinaryStudioAcademy/bsa-2018-php-9.git
-cd project-dir
-composer install
-cp .env.example .env
-php artisan key:generate
-```
 
 ## Подготовка
 
@@ -88,6 +77,3 @@ php artisan dusk
 ```
 
 см. [https://laravel.com/docs/master/dusk](https://laravel.com/docs/master/dusk)
-
-### Дополнительно
-Примеры из лекции доступны здесь: [https://github.com/Antarus66/Auth-samples](https://github.com/Antarus66/Auth-samples)

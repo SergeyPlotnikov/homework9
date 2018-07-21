@@ -10,8 +10,10 @@
             <th class="text-center" scope="col">Short Name</th>
             <th class="text-center" scope="col">Logo</th>
             <th class="text-center" scope="col">Price</th>
-            <th class="text-center" scope="col">Edit</th>
-            <th class="text-center" scope="col">Delete</th>
+            @can('show-edit-delete-buttons')
+                <th class="text-center" scope="col">Edit</th>
+                <th class="text-center" scope="col">Delete</th>
+            @endcan
             </thead>
             <tbody>
             @foreach($currencies as $currency)
@@ -22,8 +24,10 @@
                     <td class="text-center">{{$currency->short_name}}</td>
                     <td class="text-center"><img src="{{$currency->logo_url}}" alt=""></td>
                     <td class="text-center">{{$currency->price}}</td>
-                    @component('edit_delete_buttons',['currencyId'=>$currency->id])
-                    @endcomponent
+                    @can('show-edit-delete-buttons')
+                        @component('edit_delete_buttons',['currencyId'=>$currency->id])
+                        @endcomponent
+                    @endcan
                 </tr>
             @endforeach
             </tbody>

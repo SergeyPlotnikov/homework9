@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 
 use App\Currency;
 use App\Http\Requests\StoreCurrencyRequest;
+
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class CurrenciesController extends Controller
 {
-
 
     public function main()
     {
@@ -24,7 +25,11 @@ class CurrenciesController extends Controller
 
     public function create()
     {
-        return view('add_currency');
+        if (Gate::allows('add-currency')) {
+            return view('add_currency');
+        } else {
+            return redirect('/');
+        }
     }
 
     public function show($id)
@@ -37,35 +42,51 @@ class CurrenciesController extends Controller
     public function store(StoreCurrencyRequest $request)
     {
         $request->validated();
-        $currency = new Currency(['title' => $request->post('title'), 'short_name' => $request->post('short_name'),
-            'logo_url' => $request->post('logo_url'), 'price' => $request->post('price')]);
-        $currency->save();
-        return redirect()->route('Currencies');
+        if (Gate::allows('save-currency')) {
+            $currency = new Currency(['title' => $request->post('title'), 'short_name' => $request->post('short_name'),
+                'logo_url' => $request->post('logo_url'), 'price' => $request->post('price')]);
+            $currency->save();
+            return redirect()->route('Currencies');
+        } else {
+            return redirect('/');
+        }
     }
 
     public function destroy($id)
     {
-        $currency = Currency::find($id);
-        $currency->delete();
-        return redirect()->route('Currencies');
+        if (Gate::allows('delete-currency')) {
+            $currency = Currency::find($id);
+            $currency->delete();
+            return redirect()->route('Currencies');
+        } else {
+            return redirect('/');
+        }
     }
 
     public function edit($id)
     {
-        $currency = DB::table('currency')->select('logo_url', 'title', 'short_name', 'price')
-            ->where('id', $id)->get()->toArray();;
-        return view('edit', ['id' => $id, 'currency' => $currency[0]]);
+        if (Gate::allows('edit-currency')) {
+            $currency = DB::table('currency')->select('logo_url', 'title', 'short_name', 'price')
+                ->where('id', $id)->get()->toArray();
+            return view('edit', ['id' => $id, 'currency' => $currency[0]]);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function update(StoreCurrencyRequest $request, $id)
     {
-        $request->validated();
-        $currency = Currency::find($id);
-        $currency->title = $request->post('title');
-        $currency->short_name = $request->post('short_name');
-        $currency->logo_url = $request->post('logo_url');
-        $currency->price = $request->post('price');
-        $currency->save();
-        return redirect()->route('show-currency', ['id' => $id]);
+        if (Gate::allows('update-currency')) {
+            $request->validated();
+            $currency = Currency::find($id);
+            $currency->title = $request->post('title');
+            $currency->short_name = $request->post('short_name');
+            $currency->logo_url = $request->post('logo_url');
+            $currency->price = $request->post('price');
+            $currency->save();
+            return redirect()->route('show-currency', ['id' => $id]);
+        } else {
+            return redirect('/');
+        }
     }
 }

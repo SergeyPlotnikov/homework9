@@ -31,9 +31,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('Currencies')}}">Currencies</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('Add')}}">Add</a>
-                </li>
+                @can('show-add-button')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('Add')}}">Add</a>
+                    </li>
+                @endcan
             </ul>
 
 
