@@ -31,16 +31,5 @@ class StoreCurrencyRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'title.required' => 'The title field is required.',
-            'short_name.required' => 'The short name field is required.',
-            'logo_url.required' => 'The logo url field is required.',
-            'price.required' => 'The price field is required.',
-            'logo_url.url' => 'The logo url format is invalid.',
-            'price.numeric' => 'The price must be a number.',
-            'price.min' => 'The price must be at least 0.'
-        ];
-    }
+
 }

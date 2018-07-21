@@ -27,3 +27,6 @@ Route::middleware('auth')->group(function () {
 
 Auth::routes();
 
+// OAuth Routes
+Route::get('auth/facebook', 'Auth\FacebookAuthController@redirectToProvider')->name('auth-facebook');
+Route::get('auth/facebook/callback', 'Auth\FacebookAuthController@handleProviderCallback');

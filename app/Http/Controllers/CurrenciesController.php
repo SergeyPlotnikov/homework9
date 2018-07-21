@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Currency;
 use App\Http\Requests\StoreCurrencyRequest;
+use Illuminate\Support\Facades\DB;
 
 class CurrenciesController extends Controller
 {
@@ -17,7 +18,7 @@ class CurrenciesController extends Controller
 
     public function index()
     {
-        $currencies = Currency::select('id', 'title', 'short_name', 'logo_url', 'price')->get();
+        $currencies = DB::table('currency')->select('id', 'title', 'short_name', 'logo_url', 'price')->get();
         return view('currencies', ['title' => 'Currency market', 'currencies' => $currencies->toArray()]);
     }
 
@@ -28,8 +29,9 @@ class CurrenciesController extends Controller
 
     public function show($id)
     {
-        $currency = Currency::select('logo_url', 'title', 'short_name', 'price')->where('id', $id)->get()->toArray();
-        return view('currency', ['title' => $currency[0]['title'], 'id' => $id, 'currency' => $currency]);
+        $currency = DB::table('currency')->select('logo_url', 'title', 'short_name', 'price')
+            ->where('id', $id)->get()->toArray();;
+        return view('currency', ['title' => $currency[0]->title, 'id' => $id, 'currency' => $currency[0]]);
     }
 
     public function store(StoreCurrencyRequest $request)
@@ -50,7 +52,8 @@ class CurrenciesController extends Controller
 
     public function edit($id)
     {
-        $currency = Currency::select('logo_url', 'title', 'short_name', 'price')->where('id', $id)->get()->toArray();
+        $currency = DB::table('currency')->select('logo_url', 'title', 'short_name', 'price')
+            ->where('id', $id)->get()->toArray();;
         return view('edit', ['id' => $id, 'currency' => $currency[0]]);
     }
 

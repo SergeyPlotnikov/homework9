@@ -6,27 +6,20 @@
     <table class="table table-bordered" style="margin-top: 25px">
         <thead>
         <tr class="text-center">
-            @foreach($currency[0] as $key=>$item)
-                @if($key==='logo_url')
-                    <th scope="col">Logo</th>
-                @else
-                    <th scope="col">{{ucfirst($key)}}</th>
-                @endif
-            @endforeach
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th class="text-center" scope="col">Title</th>
+            <th class="text-center" scope="col">Short Name</th>
+            <th class="text-center" scope="col">Logo</th>
+            <th class="text-center" scope="col">Price</th>
+            <th class="text-center" scope="col">Edit</th>
+            <th class="text-center" scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            @foreach($currency[0] as $key=>$item)
-                @if($key==='logo_url')
-                    <td class="text-center"><img src="{{$item}}" alt=""></td>
-                @else
-                    <td class="text-center">{{$item}}</td>
-                @endif
-            @endforeach
-            {{-- edit and delete buttons --}}
+            <td class="text-center">{{$currency->title}}</td>
+            <td class="text-center">{{$currency->short_name}}</td>
+            <td class="text-center"><img src="{{$currency->logo_url}}" alt=""></td>
+            <td class="text-center">{{$currency->price}}</td>
             @component('edit_delete_buttons',['currencyId'=>$id])
             @endcomponent
         </tr>
